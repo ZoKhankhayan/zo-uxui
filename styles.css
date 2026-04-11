@@ -623,7 +623,7 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  margin-top: 32px;
+ margin-top: 50px;
 }
 
 .footer-dl a {
@@ -667,6 +667,7 @@ footer {
   padding: 6px 12px;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
   letter-spacing: 0.04em;
+  margin-bottom: 44px;
 }
 
 #theme-toggle:hover {

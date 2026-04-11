@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+
+
+
+
+    <style>
+        .header {
+            padding: var(--space-24) 0;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu {
+            display: flex;
+            gap: var(--space-32);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+
+
+        /* =========================
+   Color Variables
+========================= */
+        :root {
+            --grey-000: #FFFFFF;
+            --grey-200: #E2E2E2;
+            --grey-500: #797A7D;
+            --grey-900: #252525;
+        }
+
+        /* =========================
+   Reset
+========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--grey-200);
+            color: var(--grey-900);
+        }
+
+        /* =========================
+   Page Container (1440 feel)
+========================= */
+        .page {
+            max-width: 1440px;
+            min-height: 1024px;
+            margin: 0 auto;
+            padding: 0 80px;
+            /* margin 80 */
+        }
+
+        /* =========================
+   12 Column Grid
+========================= */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            /* gutter */
+            padding-top: 80px;
+        }
+
+        /* Column spans */
+        .col-12 {
+            grid-column: span 12;
+        }
+
+        .col-6 {
+            grid-column: span 6;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-3 {
+            grid-column: span 3;
+        }
+
+        /* =========================
+   Typography Styles
+========================= */
+        h1 {
+            font-size: 64px;
+            font-weight: 600;
+            /* Semi Bold */
+            color: var(--grey-900);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            /* Semi Bold */
+            color: var(--grey-900);
+        }
+
+        .caption {
+            font-size: 12px;
+            font-weight: 400;
+            /* Regular */
+            color: var(--grey-500);
+            margin-top: 8px;
+        }
+
+        /* =========================
+   Example Card
+========================= */
+        .card {
+            background: var(--grey-000);
+            padding: 32px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+
+
+
+</head>
+
+
+
+<body>
+    <div class="page">
+
+        <!-- Example Hero -->
+        <section class="grid">
+            <div class="col-12">
+                <h1>Hero Title Example</h1>
+            </div>
+
+            <div class="col-6">
+                <h2>Section Title</h2>
+                <p class="caption">Caption / meta text style example</p>
+            </div>
+
+            <div class="col-6 card">
+                Card / Image / Content
+            </div>
+        </section>
+
+    </div>
+
+    <footer></footer>
+
+</body>
+
+
+</html>

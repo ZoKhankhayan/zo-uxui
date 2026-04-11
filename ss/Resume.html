@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zo Khankhayan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────────────────── */
+    :root {
+      --gray-000: #FFFFFF;
+      --gray-200: #F9F9F9;
+      --gray-500: #888888;
+      --gray-900: #252525;
+      --gutter: 16px;
+
+      /*
+        12-col grid breakpoints:
+          1440px → margin 80px,  col = (1440-160-176)/12 = 92px
+          1920px → margin 160px, col = (1920-320-176)/12 ≈ 119px
+
+        Fluid margin between 1440–1920:
+          --margin = 80 + 80*(vw-1440)/480
+        Below 1440: clamp to 24px minimum
+        Above 1920: clamp to 160px maximum
+      */
+      --margin: clamp(24px, calc(-160px + 16.667vw), 160px);
+
+      /*
+        Inside .page-grid (repeat 12, 1fr, gap 16px):
+          Col 1 = section numbers, dates
+          Col 2 = spacer
+          Col 3 = tags, category labels, section titles
+          Col 4–12 = body content
+      */
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--gray-200);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--gray-900);
+    }
+
+    /* ─── Typography ─── */
+    .h1 {
+      font-weight: 600;
+      font-size: clamp(32px, 4.44vw, 64px);
+      color: var(--gray-900);
+      line-height: 1;
+    }
+
+    .h2 {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--gray-900);
+    }
+
+    .h3 {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--gray-900);
+    }
+
+    .h4 {
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .body {
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+
+    .muted {
+      color: var(--gray-500);
+    }
+
+    /* ─── Page shell: applies outer margin ─── */
+    .page-shell {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 0 var(--margin);
+    }
+
+    /* ─── 12-col grid ─── */
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--gutter);
+    }
+
+    /* Rule that spans col 3–12 inside a grid (starts at col 3, not col 1) */
+    .rule-grid {
+      grid-column: 3 / 13;
+      border: none;
+      border-top: 1px solid #b1b1b1;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════════════ */
+    nav {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 34px var(--margin);
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--gutter);
+      align-items: center;
+    }
+
+    .nav-logo {
+      grid-column: 1 / 3;
+      font-weight: 600;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      grid-column: 6 / 9;
+      display: flex;
+      gap: clamp(12px, 2.5vw, 36px);
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-900);
+      font-size: 16px;
+    }
+
+    .nav-loc {
+      grid-column: 10 / 13;
+      font-size: 16px;
+      color: var(--gray-500);
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        grid-column: 3 / 13;
+      }
+
+      .nav-loc {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+        padding: 24px var(--margin);
+      }
+
+      .nav-logo,
+      .nav-links {
+        grid-column: 1;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════ */
+    .hero-row {
+      padding: clamp(32px, 5vw, 80px) 0;
+      align-items: center;
+    }
+
+    .hero-num {
+      grid-column: 1;
+      align-self: start;
+      padding: clamp(24px, 5vw, 24px) 0 clamp(16px, 3vw, 24px);
+    }
+
+    .hero-name {
+      grid-column: 3 / 10;
+      font-weight: 600;
+      font-size: clamp(16px, 4.44vw, 64px);
+      color: var(--gray-900);
+      line-height: 1.32;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    .hero-img {
+      grid-column: 11 / 13;
+      width: 100%;
+      object-fit: contain;
+      align-self: start;
+      padding: clamp(24px, 5vw, 24px) 0 clamp(16px, 3vw, 24px);
+    }
+
+    @media (max-width: 900px) {
+      .hero-name {
+        grid-column: 3 / 12;
+      }
+
+      .hero-img {
+        grid-column: 12 / 13;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-row {
+        row-gap: 16px;
+      }
+
+      .hero-name {
+        grid-column: 3 / 13;
+      }
+
+
+    }
+
+    /* ═══════════════════════════════════════════════════
+       BIO  (no section number — starts at col 3)
+    ═══════════════════════════════════════════════════ */
+    .bio-wrap {
+      grid-column: 3 / 13;
+      padding: clamp(12px, 4vw, 24px) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .bio-wrap .body {
+      text-align: justify;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       SECTION HEADER
+       num  → col 1      (same column as dates below)
+       title→ col 3–12
+    ═══════════════════════════════════════════════════ */
+    .sec-num {
+      grid-column: 1;
+      align-self: center;
+      padding: clamp(200px, 5vw, 24px) 0 clamp(16px, 3vw, 24px);
+    }
+
+    .sec-title {
+      grid-column: 3 / 13;
+      font-weight: 600;
+      font-size: clamp(24px, 4.44vw, 64px);
+      color: var(--gray-900);
+      line-height: 1;
+      padding: clamp(200px, 5vw, 24px) 0 clamp(16px, 3vw, 24px);
+      align-self: center;
+    }
+
+    .sec-title.right {
+      text-align: right;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       PERSONAL DETAILS
+       Label  → col 3–4  (2 cols inside the content zone)
+       Value  → col 5+
+       (all inside .page-grid, starting at col 3)
+    ═══════════════════════════════════════════════════ */
+    .det-label {
+      grid-column: 3 / 5;
+      /* 2 cols wide, starting at col 3 */
+      font-weight: 600;
+      font-size: 16px;
+      align-self: start;
+      padding-bottom: 20px;
+      padding-top: 24px;
+    }
+
+    .det-val-a {
+      grid-column: 7 / 9;
+      padding-top: 24px;
+    }
+
+    .det-val-b {
+      grid-column: 10 / 12;
+      padding-top: 24px;
+    }
+
+    .det-val-full {
+      grid-column: 7 / 13;
+      padding-top: 24px;
+    }
+
+    /* spacer rows — keep labels from bleeding into next row */
+    .det-spacer {
+      grid-column: 3 / 13;
+      height: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .det-label {
+        grid-column: 3 / 7;
+      }
+
+      .det-val-a {
+        grid-column: 3 / 8;
+      }
+
+      .det-val-b {
+        grid-column: 8 / 13;
+      }
+
+      .det-val-full {
+        grid-column: 3 / 13;
+      }
+    }
+
+    @media (max-width: 560px) {
+
+      .det-label,
+      .det-val-a,
+      .det-val-b,
+      .det-val-full {
+        grid-column: 1 / 13;
+      }
+    }
+
+    /* bottom padding on last detail row */
+    .det-section-end {
+      padding-bottom: clamp(24px, 4vw, 64px);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       EXPERIENCE / VOLUNTEERING / AWARDS ENTRY
+       date    → col 3   (h2 + h4, aligns with sec-title / content)
+       tag     → col 4   (project type label)
+       content → col 5–12
+    ═══════════════════════════════════════════════════ */
+    .entry-date {
+      grid-column: 3;
+      padding: clamp(24px, 3vw, 24px) 0;
+      align-self: start;
+    }
+
+    .entry-date .h4 {
+      margin-top: 4px;
+    }
+
+    .entry-tag {
+      grid-column: 5 / 7;
+      padding: clamp(24px, 3vw, 24px) 0;
+      font-size: 14px;
+      line-height: 1.6;
+      align-self: start;
+    }
+
+    .entry-content {
+      grid-column: 7 / 13;
+      padding: clamp(24px, 3vw, 24px) 0;
+      align-self: start;
+    }
+
+    .entry-content .h2 {
+      margin-bottom: 10px;
+    }
+
+    .entry-content .body {
+      text-align: justify;
+
+    }
+
+    .entry-content .skills {
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .entry-date {
+        grid-column: 3 / 5;
+      }
+
+      .entry-tag {
+        grid-column: 5 / 8;
+      }
+
+      .entry-content {
+        grid-column: 8 / 13;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .entry-date {
+        grid-column: 3 / 8;
+        padding-bottom: 0;
+      }
+
+      .entry-tag {
+        grid-column: 8 / 13;
+        padding-bottom: 0;
+      }
+
+      .entry-content {
+        grid-column: 3 / 13;
+        padding-top: 8px;
+      }
+    }
+
+    @media (max-width: 420px) {
+
+      .entry-date,
+      .entry-tag,
+      .entry-content {
+        grid-column: 3 / 13;
+      }
+
+      .entry-date {
+        padding-bottom: 0;
+      }
+
+      .entry-tag {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .entry-content {
+        padding-top: 8px;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       SKILL ROWS
+       label → col 3   (same as entry-date / sec-title)
+       grid  → col 4–12, fixed 3 columns
+    ═══════════════════════════════════════════════════ */
+    .skill-label {
+      grid-column: 3/7;
+      font-weight: 600;
+      font-size: 16px;
+      padding: clamp(24px, 3vw, 24px) 0;
+      align-self: start;
+    }
+
+    .skill-grid {
+      grid-column: 7 / 13;
+      /* starts at col 7, ends at col 13 */
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      /* 6 equal columns */
+      column-gap: 0;
+      /* remove gap so cols stay tight */
+      row-gap: clamp(24px, 2vw, 24px);
+      padding: clamp(24px, 3vw, 24px) 0;
+      align-self: start;
+    }
+
+
+    .skill-item {
+      grid-column: span 2;
+      /* each item takes 2 columns */
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+
+    .badge {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      background: var(--gray-900);
+      color: var(--gray-000);
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      grid-column: 7;
+      /* starts at column 7 */
+    }
+
+    .skill-item-text .h2 {
+      font-size: 16px;
+    }
+
+    .skill-item-text .h4 {
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+    @media (max-width: 900px) {
+      .skill-label {
+        grid-column: 1 / 4;
+      }
+
+      .skill-grid {
+        grid-column: 1 / 13;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skill-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
+    
+    
+    footer {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 24px) var(--margin);
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--gutter);
+      border-top: 1px solid #E0E0E0 ;
+      align-items: start;
+    }
+
+    .footer-contact {
+      grid-column: 1 / 6;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-contact-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-contact-row span:first-child {
+      min-width: 72px;
+    }
+
+    .footer-dl {
+      grid-column: 6 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-top: 32px;
+    }
+
+    .footer-dl a {
+      text-decoration: none;
+      color: var(--gray-900);
+      font-size: 16px;
+    }
+
+    .footer-copy {
+      grid-column: 9 / 13;
+      text-align: right;
+      font-size: 16px;
+      align-self: flex-end;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+      }
+
+      .footer-contact,
+      .footer-dl,
+      .footer-copy {
+        grid-column: 1;
+      }
+
+      .footer-dl {
+        align-items: flex-start;
+      }
+
+      .footer-copy {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- ════ NAV ════ -->
+  <hr class="rule-grid">
+  <nav>
+    <span class="nav-logo h2">ZO KHANKHAYAN</span>
+    <div class="nav-links">
+      <a href="#">.</a>
+      <a href="#">.</a>
+      <a href="#">.</a>
+      <a href="#">.</a>
+    </div>
+    <span class="nav-loc">Based in Sydney</span>
+  </nav>
+  <hr class="rule-grid" />
+  <div class="page-shell">
+
+
+
+    <!-- ════ 00 HERO ════ -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br>
+
+
+    <div class="page-grid">
+      <hr class="rule-grid">
+      <div class="hero-num h1">00</div>
+      <div class="hero-name">ZO /<br />NATHAMON<br />KHANKHAYAN</div>
+      <img class="hero-img" src="file:///C:/00_2026-PORTFOLIO/HTML/Screenshot%202026-03-25%20204212.png"
+        alt="Zo Khankhayan" />
+      <hr class="rule-grid" />
+    </div>
+
+
+
+
+
+
+    <!-- ════ BIO ════ -->
+    <div class="page-grid">
+      <div class="bio-wrap">
+        <p class="body">
+          I hold a bachelor's degree in architecture (5 years) from King Mongkut's Institute of Technology
+          Ladkrabang (KMITL). Throughout my academic journey and professional experience, I have actively
+          participated in various design-focused projects and have enjoyed working collaboratively within a team.
+          My attention to detail, strong sense of modern architectural aesthetics, and ability to adapt to new
+          challenges and diverse teams have been key strengths.
+        </p>
+        <p class="body">
+          In previous professional roles, I have been working on construction documentation at Crone Architects
+          for 2.5 years and moved to Cox Architects for 9 months. This role allows me to apply my attention to
+          detail and organizational abilities to ensure the smooth flow of project information and documentation
+          processes. By collaborating closely with the team, I contribute to maintaining standards and efficient
+          project coordination. I continue to expand my knowledge and skills in architectural practices and
+          document control, further enhancing my professional capabilities within the end.
+        </p>
+        <div class="rule-grid">
+          <br>
+          <p class="body">
+            I’m passionate about design, visuals, grids, lines, patterns, color, and the small details that can enrich human life. I try to notice the subtle moments in everyday life and how thoughtful design can gently enhance them. I hope to contribute to work that brings care and meaning into people’s routines, and to be someone who enjoys collaborating with others, helping create a team environment where everyone can enjoy the process together.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- ════ 01 PERSONAL DETAILS ════ -->
+
+    <div class="page-grid">
+
+      <div class="sec-num h1">01</div>
+      <div class="sec-title">PERSONAL DETAILS</div>
+
+      <!-- Language row -->
+      <hr class="rule-grid" />
+      <div class="det-label h2">LANGUAGE</div>
+      <div class="det-val-a body">
+        <strong>English</strong><br />
+        Speaking: Intermediate<br />
+        Writing: Advanced
+      </div>
+      <div class="det-val-b body">
+        <strong>Thai</strong><br />
+        Speaking: Native<br />
+        Writing: Native
+      </div>
+
+      <div class="det-spacer"></div>
+
+
+      <!-- Availability row -->
+      <hr class="rule-grid" />
+      <div class="det-label h2">AVAILABILITY</div>
+      <div class="det-val-full body">Fulltime Mon–Fri, (Visa subclass 820)</div>
+
+      <div class="det-spacer"></div>
+
+      <!-- Education row -->
+      <hr class="rule-grid" />
+      <div class="det-label h2">EDUCATION</div>
+      <div class="det-val-full body det-section-end">
+        King Mongkut's Institute of Technology Ladkrabang (2021)<br />
+        Bachelor of Architecture<br />
+        Graduated with Second Honor
+      </div>
+    </div>
+
+    <!-- ════ 02 WORK EXPERIENCE ════ -->
+
+    <div class="page-grid">
+      <div class="sec-num h1">02</div>
+      <div class="sec-title right">WORK EXPERIENCE</div>
+    </div>
+
+    <!-- Easy Rice -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2020–2021</div>
+        <div class="h4">/ 1 Year</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Presentation<br />/ Graphic</div>
+      <div class="entry-content">
+        <div class="h2">EASY RICE DIGITAL TECHNOLOGY – THAILAND (PART-TIME)</div>
+        <p class="body">
+          Involved in graphic design for Easy Rice, a startup focused on developing machine technology to assess
+          rice quality in Thailand. Responsibilities included creating presentations, logos, and other visual
+          materials to support the company's initiatives in the agriculture sector.
+        </p>
+        <div class="h3 skills">Skills: Teaching · Graphic Design · Adobe Creative Suite</div>
+      </div>
+    </div>
+
+    <!-- NAAD Kyoto -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2020</div>
+        <div class="h4">/ 3 Months</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Yoga house<br />/ Portugal</div>
+      <div class="entry-content">
+        <div class="h2">NAAD – KYOTO JAPAN (INTERN)</div>
+        <p class="body">
+          A culturally inspired yoga house was designed for a competition project, integrating innovative elements
+          while prioritizing functionality and aesthetics. The resulting architectural solution met the project
+          objectives and showcased the firm's creative approach.
+        </p>
+        <div class="h3 skills">Skills: Urbanism · Adobe Creative Suite · SketchUp · Rhino · AutoCAD</div>
+      </div>
+    </div>
+
+    <!-- Crone Sekisui -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2022</div>
+        <div class="h4">/ 3 Months</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Sekisui house<br />/ The Orchards Norwest</div>
+      <div class="entry-content">
+        <div class="h2">CRONE ARCHITECTS – SYDNEY, NSW (FULL TIME)</div>
+        <p class="body">
+          Collaborated with the team to prepare documentation for a large-scale residential project at The
+          Orchards Norwest for the Development Application (DA). Necessary documents were gathered and organised
+          in coordination with the mentor and team members, ensuring compliance with regulatory requirements.
+          A comprehensive and well-prepared application was submitted for Sekisui.
+        </p>
+        <p class="body" style="margin-top:8px;"><strong>Experience</strong></p>
+        </p>
+        <p class="body"></p>Interior package: Working on interior package and marketing</p>
+        <div class="h3 skills">Skills: Residential · Adobe Creative Suite · Revit</div>
+      </div>
+    </div>
+
+    <!-- Crone One Circular Quay -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2023–2025</div>
+        <div class="h4">/ 2.2 Years</div>
+      </div>
+      <div class="entry-tag">Project<br />/ One Circular Quay<br />/ Circular Quay, Sydney</div>
+      <div class="entry-content">
+        <div class="h2">CRONE ARCHITECTS – SYDNEY, NSW (FULL TIME)</div>
+        <p class="body">
+          Experienced in managing documentation, coordinating with teams, and producing detailed architectural
+          drawings under the guidance of a lead architect across stages from design development to detailed design
+          and construction documentation.
+        </p>
+        <p class="body" style="margin-top:8px;"><strong>Experience</strong></p>
+        <p class="body">
+        <ul>
+          <li>Document Controller: Established and managed the documentation delivery system for a high-profile
+            residential project, ensuring timely and accurate delivery to clients.</li>
+          <li>Ceiling Details: Developed detailed ceiling plans and specifications from DD to DC stages, ensuring
+            compliance with design and safety standards.</li>
+          <li>Waterproofing Plans and Details: Created comprehensive waterproofing plans and details at the DD stage,
+            maintaining the integrity and durability of building structures.</li>
+          <li>Back of House Areas: Designed and coordinated back-of-house areas from DD to DC stages, focusing on
+            functionality and operational efficiency.</li>
+          <li>Floor Finish Plans: Developed detailed floor finish plans for the penthouse level during the DD stage,
+            enhancing both aesthetic and functional aspects of the project.</li>
+          <li> Calculations: Managed and calculated Gross Floor Area (GFA) and Net Sellable Area (NSA) from DA
+            to DC stages, ensuring accuracy and regulatory compliance.</li>
+          <li>Site Visits: Conducted site visits at Circular Quay to verify that waterproofing and ceiling
+            installations were completed in alignment with documentation.</li>
+        </ul>
+        </p>
+        <div class="h3 skills">Skills: Residential · BCA · Revit · Aconex</div>
+      </div>
+    </div>
+
+    <!-- Cox Architects -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2025</div>
+        <div class="h4">/ 9 Months</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Precinct 75<br />/ ST Peters, Sydney</div>
+      <div class="entry-content">
+        <div class="h2">COX ARCHITECTS – SYDNEY, NSW (FULL TIME)</div>
+        <p class="body">
+          As P75 is a large-scale project divided between Construction and HDA teams, I worked across both
+          stages. I supported the team lead in delivering construction documentation to ensure compliance with
+          regulatory standards and also prepared HDA stage documentation tailored to specific client requirements.
+        </p>
+
+        <strong>Experience</strong>
+        <br>
+        AFC to Construction Stage (Team Construction)
+        <ul>
+          <li>Door Schedule: Continued development of the door schedule, ensuring all doors were accurately captured
+            and documented.</li>
+          <li>Reflected Ceiling Plan (RCP): Assisted under the team lead to ensure ceilings were correctly specified
+            and drawn, coordinated with mechanical, fire, and electrical team requirements.</li>
+          <br />
+          HDA to Draft IFC Stage (Team HDA)
+          <li>Door Schedule: Established doors and corresponding schedules to meet client, interior and mechanical
+            requirements at Draft IFC documentation.</li>
+          <li>Partition Plan: Set up partition plans and components to meet client, interior and mechanical
+            requirements at Draft IFC documentation.</li>
+          <li>Reflected Ceiling Plan (RCP): Prepared RCPs to meet client, interior and mechanical requirements at
+            the Draft IFC stage.</li>
+        </ul>
+
+        <div class="h3 skills">Skills: Residential · Adobe Creative Suite · Revit</div>
+      </div>
+    </div>
+    <div class="page-grid">
+      <hr class="rule-grid" />
+    </div>
+
+    <!-- ════ 03 VOLUNTEERING ════ -->
+
+    <div class="page-grid">
+      <div class="sec-num h1">03</div>
+      <div class="sec-title right">VOLUNTEERING</div>
+    </div>
+
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2016</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Construction</div>
+      <div class="entry-content">
+        <div class="h2">CONSTRUCTION</div>
+        <p class="body">
+          In 2016, when all the houses in Mea Jana village were ravaged by a devastating fire, I applied to join
+          a volunteer group tasked with the responsibility of repairing the fire-damaged houses. This experience
+          served as my initial introduction to the world of architecture design and left an indelible impression
+          on me.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2019</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Hiking with Disabled Friends</div>
+      <div class="entry-content">
+        <div class="h2">SCHEMATIC UNIVERSAL DESIGN FOR DISABLED PEOPLE</div>
+        <p class="body">
+          To facilitate an inclusive and accessible experience for disabled individuals in the 'Hiking with
+          Disabled Friends' project at Khao Daeng, Prachuap Khiri Khan, I developed a comprehensive schematic
+          universal design tool. This tool promotes equal participation, ensuring that individuals with
+          disabilities can navigate comfortably and safely.
+        </p>
+      </div>
+    </div>
+    <div class="page-grid">
+      <hr class="rule-grid" />
+    </div>
+
+    <!-- ════ 04 AWARDS ════ -->
+
+    <div class="page-grid">
+      <div class="sec-num h1">04</div>
+      <div class="sec-title">AWARDS</div>
+    </div>
+
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="entry-date">
+        <div class="h2">2021</div>
+      </div>
+      <div class="entry-tag">Project<br />/ Urban refugee<br />housing</div>
+      <div class="entry-content">
+        <div class="h2">THESIS OF THE YEAR AWARD (TOY ARCH) THAILAND.</div>
+        <p class="body">
+          Honorable Mention in Thesis of the Year Award 2021, issued by ASA (The Association of Siamese
+          Architects Under Royal Patronage) and CDAST (Council of Deans of Architecture Schools of Thailand),
+          September 2021.
+        </p>
+      </div>
+    </div>
+    <div class="page-grid">
+      <hr class="rule-grid" />
+    </div>
+
+    <!-- ════ 05 SKILL ════ -->
+
+    <div class="page-grid">
+      <div class="sec-num h1">05</div>
+      <div class="sec-title">SKILL</div>
+    </div>
+
+    <!-- 3D Modeling & Rendering -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="skill-label">3D MODELING<br />&amp; RENDERING</div>
+      <div class="skill-grid">
+        <div class="skill-item">
+          <div class="badge">SKP</div>
+          <div class="skill-item-text">
+            <div class="h2">SKETCHUP</div>
+            <div class="h4">6 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">RVT</div>
+          <div class="skill-item-text">
+            <div class="h2">AUTODESK REVIT</div>
+            <div class="h4">3 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">CAD</div>
+          <div class="skill-item-text">
+            <div class="h2">AUTOCAD</div>
+            <div class="h4">3 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">LM</div>
+          <div class="skill-item-text">
+            <div class="h2">LUMION</div>
+            <div class="h4">4 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">ESC</div>
+          <div class="skill-item-text">
+            <div class="h2">ENSCAPE</div>
+            <div class="h4">3 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">D5</div>
+          <div class="skill-item-text">
+            <div class="h2">D5</div>
+            <div class="h4">2 years<br />in professional practice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphic -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="skill-label">GRAPHIC</div>
+      <div class="skill-grid">
+        <div class="skill-item">
+          <div class="badge">PSD</div>
+          <div class="skill-item-text">
+            <div class="h2">PHOTOSHOP</div>
+            <div class="h4">6 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">AI</div>
+          <div class="skill-item-text">
+            <div class="h2">ILLUSTRATION</div>
+            <div class="h4">6 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">FIGMA</div>
+          <div class="skill-item-text">
+            <div class="h2">FIGMA</div>
+            <div class="h4">4 months<br />of practice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document / Project Management -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="skill-label">DOCUMENT &amp;<br />PROJECT MGMT</div>
+      <div class="skill-grid">
+        <div class="skill-item">
+          <div class="badge">MS</div>
+          <div class="skill-item-text">
+            <div class="h2">MICROSOFT</div>
+            <div class="h4">6 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">DOC</div>
+          <div class="skill-item-text">
+            <div class="h2">ACONEX</div>
+            <div class="h4">3 years<br />in professional practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">BIM</div>
+          <div class="skill-item-text">
+            <div class="h2">BIM LINK</div>
+            <div class="h4">1 year<br />in professional practice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Front-end / Coding -->
+    <div class="page-grid">
+      <hr class="rule-grid" />
+      <div class="skill-label">FRONT-END /<br />CODING</div>
+      <div class="skill-grid">
+        <div class="skill-item">
+          <div class="badge">CSS</div>
+          <div class="skill-item-text">
+            <div class="h2">CSS</div>
+            <div class="h4">1 month<br />of practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">HTML</div>
+          <div class="skill-item-text">
+            <div class="h2">HTML</div>
+            <div class="h4">1 month<br />of practice</div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="badge">AI</div>
+          <div class="skill-item-text">
+            <div class="h2">CLAUDE &amp; ETC</div>
+            <div class="h4">1 year<br />in professional practice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-grid">
+      <hr class="rule-grid" />
+    </div>
+
+  </div><!-- end .page-shell -->
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <div class="footer-contact">
+      <div class="footer-contact-row">
+  <a href="mailto:Zo.Nathamon.k@gmail.com" class="body">Zo.Nathamon.k@gmail.com</a>
+</div>
+
+<div class="footer-contact-row">
+  <a href="https://www.behance.net/Zo_Khankhayan" target="_blank" class="body">Behance</a>
+</div>
+
+<div class="footer-contact-row">
+  <a href="https://www.linkedin.com/in/zo-khankhayan-32413b2a5" target="_blank" class="body">LinkedIn</a>
+</div>
+    </div>
+
+    
+    <div class="footer-dl">
+      <a href="#" class="body">Download Resume</a>
+      <a href="#" class="body">Download Portfolio</a>
+    </div>
+    <div class="footer-copy body">© 2026 Zo K. Designed &amp; built by me</div>
+  </footer>
+
+</body>
+
+</html>

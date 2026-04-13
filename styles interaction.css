@@ -398,7 +398,7 @@ nav {
    ============================================= */
 footer {
   max-width: 1920px;
-  margin top: ;
+  margin-top:40px;
   padding: clamp(24px, 5vw, 24px) var(--margin);
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -613,7 +613,13 @@ footer {
     transition: transform 0.05s linear;
   }
 
-  #buffon-tile .eye { style="position:absolute; top:0px; right:120px width:24%; pointer-events:none; !important;" }
+  #buffon-tile .eye {
+  position: absolute;
+  top: 0px;
+  right: 120px;
+  width: 24%;
+  pointer-events: none !important;
+}
   #buffon-tile #buffon-right-eye {  style="position:absolute; top:0px; left:200px; width:24%; pointer-events:none; !important;"}
 
   #zilla-tile .eye { left: 26% !important; width: 20% !important; }

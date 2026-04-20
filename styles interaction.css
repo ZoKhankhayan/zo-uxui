@@ -1389,7 +1389,101 @@ footer {
   }
 }
 
+/* ── 1366 px — 2 col grid ── */
+@media (max-width: 1366px) {
+  .eye {
+    transition: transform 0.05s linear;
+  }
 
+  #buffon-tile .eye {
+    left: 40% !important;
+    width: 20% !important;
+  }
+
+  #buffon-tile #buffon-right-eye {
+    left: 68% !important;
+  }
+
+
+
+  #zilla-tile .eye {
+    left: 20% !important;
+    width: 60% !important;
+  }
+
+  #zilla-tile #zilla-right-eye {
+    left: 38% !important;
+  }
+
+
+
+  #Pip-tile .eye {
+    left: 33% !important;
+    width: 35% !important;
+  }
+
+  #Pip-tile #Pip-right-eye {
+    left: 56% !important;
+  }
+
+  #Rumi .eye {
+    left: 40% !important;
+    width: 20% !important;
+  }
+
+  #Rumi #Rumi-right-eye {
+    left: 58% !important;
+  }
+}
+
+
+
+/* ── 1024 px — 2 col grid ── */
+@media (max-width: 1024px) {
+  .eye {
+    transition: transform 0.05s linear;
+  }
+
+  #buffon-tile .eye {
+    left: 40% !important;
+    width: 20% !important;
+  }
+
+  #buffon-tile #buffon-right-eye {
+    left: 67% !important;
+  }
+
+
+
+  #zilla-tile .eye {
+    left: 20% !important;
+    width: 60% !important;
+  }
+
+  #zilla-tile #zilla-right-eye {
+    left: 38% !important;
+  }
+
+
+
+  #Pip-tile .eye {
+    left: 33% !important;
+    width: 35% !important;
+  }
+
+  #Pip-tile #Pip-right-eye {
+    left: 56% !important;
+  }
+
+  #Rumi .eye {
+    left: 40% !important;
+    width: 20% !important;
+  }
+
+  #Rumi #Rumi-right-eye {
+    left: 58% !important;
+  }
+}
 
 
 /* ── 768px — 2 col grid ── */
